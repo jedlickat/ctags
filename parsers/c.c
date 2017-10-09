@@ -297,6 +297,7 @@ static langType Lang_csharp;
 static langType Lang_d;
 static langType Lang_java;
 static langType Lang_vera;
+static langType Lang_dtrace;
 static vString *Signature;
 static bool CollectingSignature;
 
@@ -482,6 +483,14 @@ static kindDefinition VeraKinds [] = {
 	{ false, 'x', "externvar",  "external variable declarations"},
 	{ true,  'h', "header",     "included header files",
 	  .referenceOnly = true, ATTACH_ROLES(VeraHeaderRoles)},
+};
+
+typedef enum {
+	DTRACE_UNDEFINED = COMMONK_UNDEFINED,
+} dtraceKind;
+
+static kindDefinition DTraceKinds [] = {
+	{ true,  'v', "variable",  "variable definitions" },
 };
 
 static const keywordDesc KeywordTable [] = {
@@ -3587,6 +3596,12 @@ static void initializeVeraParser (const langType language)
 	buildKeywordHash (language, 5);
 }
 
+static void initializeDTraceParser (const langType language)
+{
+	Lang_dtrace = language;
+	buildKeywordHash (language, 6);
+}
+
 extern parserDefinition* OldCParser (void)
 {
 	static const char *const extensions [] = { "c", NULL };
@@ -3678,5 +3693,18 @@ extern parserDefinition* VeraParser (void)
 	def->initialize = initializeVeraParser;
 	// end: field is not tested.
 	// def->useCork    = true;
+	return def;
+}
+
+extern parserDefinition* DTraceParser (void)
+{
+	static const char *const extensions [] = { "d", NULL };
+	parserDefinition* def = parserNew ("DTrace");
+	def->kindTable	= DTraceKinds;
+	def->kindCount	= ARRAY_SIZE (DTraceKinds);
+	def->extensions	= extensions;
+	def->parser2	= findCTags;
+	def->initialize	= initializeDTraceParser;
+	// TODO: end field like above?
 	return def;
 }

@@ -58,6 +58,7 @@
 	DiffParser, \
 	DtdParser, \
 	DTSParser, \
+	DTraceParser, \
 	DosBatchParser, \
 	EiffelParser, \
 	ElmParser, \
