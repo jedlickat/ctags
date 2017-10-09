@@ -3618,12 +3618,15 @@ extern parserDefinition* OldCParser (void)
 extern parserDefinition* DParser (void)
 {
 	static const char *const extensions [] = { "d", "di", NULL };
+	static selectLanguage selectors [] = { selectByDTInterp, NULL };
+
 	parserDefinition* def = parserNew ("D");
 	def->kindTable      = DKinds;
 	def->kindCount  = ARRAY_SIZE (DKinds);
 	def->extensions = extensions;
 	def->parser2    = findCTags;
 	def->initialize = initializeDParser;
+	def->selectLanguage = selectors;
 	// end: field is not tested.
 	// def->useCork    = true;
 	return def;
@@ -3699,12 +3702,15 @@ extern parserDefinition* VeraParser (void)
 extern parserDefinition* DTraceParser (void)
 {
 	static const char *const extensions [] = { "d", NULL };
+	static selectLanguage selectors [] = { selectByDTInterp, NULL };
+
 	parserDefinition* def = parserNew ("DTrace");
 	def->kindTable	= DTraceKinds;
 	def->kindCount	= ARRAY_SIZE (DTraceKinds);
 	def->extensions	= extensions;
 	def->parser2	= findCTags;
 	def->initialize	= initializeDTraceParser;
+	def->selectLanguage = selectors;
 	// TODO: end field like above?
 	return def;
 }

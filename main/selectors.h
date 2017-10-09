@@ -19,6 +19,9 @@ const char *
 selectByObjectiveCAndMatLabKeywords (MIO *, langType *, unsigned int);
 
 const char *
+selectByDTInterp (MIO *, langType *, unsigned int);
+
+const char *
 selectByObjectiveCKeywords(MIO *, langType *, unsigned int);
 
 const char *

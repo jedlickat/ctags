@@ -28,6 +28,9 @@ static const char *TR_MATLAB  = "MatLab";
 
 static const char *TR_CPP     = "C++";
 
+static const char *TR_D       = "D";
+static const char *TR_DTRACE  = "DTrace";
+
 static const char *TR_R       = "R";
 static const char *TR_ASM     = "Asm";
 
@@ -171,6 +174,39 @@ selectByObjectiveCAndMatLabKeywords (MIO * input,
 }
 
 static const char *
+tasteDTrace (const char *line, void *data CTAGS_ATTR_UNUSED)
+{
+	if (startsWith (line, "#!/usr/sbin/dtrace"))
+		return TR_DTRACE;
+
+	return NULL;
+}
+
+const char *
+selectByDTInterp (MIO * input, langType *candidates CTAGS_ATTR_UNUSED,
+		  unsigned int nCandidates CTAGS_ATTR_UNUSED)
+{
+	static langType d = LANG_IGNORE;
+	static langType dtrace = LANG_IGNORE;
+
+	if (d == LANG_IGNORE)
+		d = getNamedLanguage (TR_D, 0);
+
+	if (dtrace == LANG_IGNORE)
+		dtrace = getNamedLanguage (TR_DTRACE, 0);
+
+	Assert (0 <= d);
+	Assert (0 <= dtrace);
+
+	if (! isLanguageEnabled (d))
+		return TR_DTRACE;
+	else if (! isLanguageEnabled(dtrace))
+		return TR_D;
+
+	return selectByLines (input, tasteDTrace, TR_D, NULL);
+}
+
+static const char *
 tasteObjectiveC (const char *line, void *data CTAGS_ATTR_UNUSED)
 {
     if (startsWith (line, "#import")
@@ -180,6 +216,7 @@ tasteObjectiveC (const char *line, void *data CTAGS_ATTR_UNUSED)
 	return TR_OBJC;
     return NULL;
 }
+
 
 const char *
 selectByObjectiveCKeywords (MIO * input,
