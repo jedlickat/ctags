@@ -122,7 +122,7 @@ typedef int keywordId; /* to allow KEYWORD_NONE */
 typedef struct sKeywordDesc {
 	const char *name;
 	keywordId id;
-	short isValid [6]; /* indicates languages for which kw is valid */
+	short isValid [7]; /* indicates languages for which kw is valid */
 } keywordDesc;
 
 /*  Used for reporting the type of object parsed by nextToken ().
@@ -486,170 +486,169 @@ static kindDefinition VeraKinds [] = {
 };
 
 typedef enum {
-	DTRACE_UNDEFINED = COMMONK_UNDEFINED,
+	DTK_UNDEFINED = COMMONK_UNDEFINED
 } dtraceKind;
 
 static kindDefinition DTraceKinds [] = {
-	{ true,  'v', "variable",  "variable definitions" },
 };
 
 static const keywordDesc KeywordTable [] = {
-     /*                                                C++    D          */
-     /*                                         ANSI C  |  C# | Java     */
-     /*                                              |  |  |  |  |  Vera */
-     /* keyword           keyword ID                 |  |  |  |  |  |    */
-     { "__attribute__",   KEYWORD_ATTRIBUTE,       { 1, 1, 1, 1, 0, 0 } },
-     { "abstract",        KEYWORD_ABSTRACT,        { 0, 0, 1, 1, 1, 0 } },
-     { "alias",           KEYWORD_ALIAS,           { 0, 0, 0, 1, 0, 0 } },
-     { "align",           KEYWORD_ALIGN,           { 0, 0, 0, 1, 0, 0 } },
-     { "asm",             KEYWORD_ASM,             { 0, 0, 0, 1, 0, 0 } },
-     { "assert",          KEYWORD_ASSERT,          { 0, 0, 0, 1, 0, 0 } },
-     { "auto",            KEYWORD_AUTO,            { 0, 0, 0, 1, 0, 0 } },
-     { "bad_state",       KEYWORD_BAD_STATE,       { 0, 0, 0, 0, 0, 1 } },
-     { "bad_trans",       KEYWORD_BAD_TRANS,       { 0, 0, 0, 0, 0, 1 } },
-     { "bind",            KEYWORD_BIND,            { 0, 0, 0, 0, 0, 1 } },
-     { "bind_var",        KEYWORD_BIND_VAR,        { 0, 0, 0, 0, 0, 1 } },
-     { "bit",             KEYWORD_BIT,             { 0, 0, 0, 0, 0, 1 } },
-     { "body",            KEYWORD_BODY,            { 0, 0, 0, 1, 0, 0 } },
-     { "bool",            KEYWORD_BOOL,            { 0, 0, 0, 1, 0, 0 } },
-     { "bool",         KEYWORD_BOOLEAN,         { 0, 0, 0, 0, 1, 0 } },
-     { "break",           KEYWORD_BREAK,           { 0, 0, 0, 1, 0, 0 } },
-     { "byte",            KEYWORD_BYTE,            { 0, 0, 0, 1, 1, 0 } },
-     { "case",            KEYWORD_CASE,            { 1, 1, 1, 1, 1, 0 } },
-     { "cast",            KEYWORD_CAST,            { 0, 0, 0, 1, 0, 0 } },
-     { "catch",           KEYWORD_CATCH,           { 0, 1, 1, 1, 1, 0 } },
-     { "cdouble",         KEYWORD_CDOUBLE,         { 0, 0, 0, 1, 0, 0 } },
-     { "cent",            KEYWORD_CENT,            { 0, 0, 0, 1, 0, 0 } },
-     { "cfloat",          KEYWORD_CFLOAT,          { 0, 0, 0, 1, 0, 0 } },
-     { "char",            KEYWORD_CHAR,            { 1, 1, 1, 1, 1, 0 } },
-     { "class",           KEYWORD_CLASS,           { 0, 1, 1, 1, 1, 1 } },
-     { "CLOCK",           KEYWORD_CLOCK,           { 0, 0, 0, 0, 0, 1 } },
-     { "const",           KEYWORD_CONST,           { 1, 1, 1, 1, 1, 0 } },
-     { "constraint",      KEYWORD_CONSTRAINT,      { 0, 0, 0, 0, 0, 1 } },
-     { "continue",        KEYWORD_CONTINUE,        { 0, 0, 0, 1, 0, 0 } },
-     { "coverage_block",  KEYWORD_COVERAGE_BLOCK,  { 0, 0, 0, 0, 0, 1 } },
-     { "coverage_def",    KEYWORD_COVERAGE_DEF,    { 0, 0, 0, 0, 0, 1 } },
-     { "creal",           KEYWORD_CREAL,           { 0, 0, 0, 1, 0, 0 } },
-     { "dchar",           KEYWORD_DCHAR,           { 0, 0, 0, 1, 0, 0 } },
-     { "debug",           KEYWORD_DEBUG,           { 0, 0, 0, 1, 0, 0 } },
-     { "default",         KEYWORD_DEFAULT,         { 1, 1, 1, 1, 1, 0 } },
-     { "delegate",        KEYWORD_DELEGATE,        { 0, 0, 1, 1, 0, 0 } },
-     { "delete",          KEYWORD_DELETE,          { 0, 1, 0, 1, 0, 0 } },
-     { "deprecated",      KEYWORD_DEPRECATED,      { 0, 0, 0, 1, 0, 0 } },
-     { "do",              KEYWORD_DO,              { 1, 1, 1, 1, 1, 0 } },
-     { "double",          KEYWORD_DOUBLE,          { 1, 1, 1, 1, 1, 0 } },
-     { "else",            KEYWORD_ELSE,            { 1, 1, 1, 1, 1, 0 } },
-     { "enum",            KEYWORD_ENUM,            { 1, 1, 1, 1, 1, 1 } },
-     { "event",           KEYWORD_EVENT,           { 0, 0, 1, 0, 0, 1 } },
-     { "explicit",        KEYWORD_EXPLICIT,        { 0, 1, 1, 1, 0, 0 } },
-     { "export",          KEYWORD_EXPORT,          { 0, 0, 0, 1, 0, 0 } },
-     { "extends",         KEYWORD_EXTENDS,         { 0, 0, 0, 0, 1, 1 } },
-     { "extern",          KEYWORD_EXTERN,          { 1, 1, 1, 1, 0, 1 } },
-     { "false",           KEYWORD_FALSE,           { 0, 0, 0, 1, 0, 0 } },
-     { "final",           KEYWORD_FINAL,           { 0, 0, 0, 1, 1, 0 } },
-     { "finally",         KEYWORD_FINALLY,         { 0, 0, 0, 1, 0, 0 } },
-     { "float",           KEYWORD_FLOAT,           { 1, 1, 1, 1, 1, 0 } },
-     { "for",             KEYWORD_FOR,             { 1, 1, 1, 1, 1, 0 } },
-     { "foreach",         KEYWORD_FOREACH,         { 0, 0, 1, 1, 0, 0 } },
-     { "foreach_reverse", KEYWORD_FOREACH_REVERSE, { 0, 0, 0, 1, 0, 0 } },
-     { "friend",          KEYWORD_FRIEND,          { 0, 1, 0, 1, 0, 0 } },
-     { "function",        KEYWORD_FUNCTION,        { 0, 0, 0, 1, 0, 1 } },
-     { "goto",            KEYWORD_GOTO,            { 1, 1, 1, 1, 1, 0 } },
-     { "hdl_node",        KEYWORD_HDL_NODE,        { 0, 0, 0, 0, 0, 1 } },
-     { "idouble",         KEYWORD_IDOUBLE,         { 0, 0, 0, 1, 0, 0 } },
-     { "if",              KEYWORD_IF,              { 1, 1, 1, 1, 1, 0 } },
-     { "ifloat",          KEYWORD_IFLOAT,          { 0, 0, 0, 1, 0, 0 } },
-     { "implements",      KEYWORD_IMPLEMENTS,      { 0, 0, 0, 0, 1, 0 } },
-     { "import",          KEYWORD_IMPORT,          { 0, 0, 0, 1, 1, 0 } },
-     { "in",              KEYWORD_IN,              { 0, 0, 0, 1, 0, 0 } },
-     { "inline",          KEYWORD_INLINE,          { 0, 1, 0, 1, 0, 0 } },
-     { "inout",           KEYWORD_INOUT,           { 0, 0, 0, 1, 0, 1 } },
-     { "input",           KEYWORD_INPUT,           { 0, 0, 0, 0, 0, 1 } },
-     { "int",             KEYWORD_INT,             { 1, 1, 1, 1, 1, 0 } },
-     { "integer",         KEYWORD_INTEGER,         { 0, 0, 0, 0, 0, 1 } },
-     { "interface",       KEYWORD_INTERFACE,       { 0, 0, 1, 1, 1, 1 } },
-     { "internal",        KEYWORD_INTERNAL,        { 0, 0, 1, 0, 0, 0 } },
-     { "invariant",       KEYWORD_INVARIANT,       { 0, 0, 0, 1, 0, 0 } },
-     { "ireal",           KEYWORD_IREAL,           { 0, 0, 0, 1, 0, 0 } },
-     { "is",              KEYWORD_IS,              { 0, 0, 0, 1, 0, 0 } },
-     { "lazy",            KEYWORD_LAZY,            { 0, 0, 0, 1, 0, 0 } },
-     { "local",           KEYWORD_LOCAL,           { 0, 0, 0, 0, 0, 1 } },
-     { "long",            KEYWORD_LONG,            { 1, 1, 1, 1, 1, 0 } },
-     { "m_bad_state",     KEYWORD_M_BAD_STATE,     { 0, 0, 0, 0, 0, 1 } },
-     { "m_bad_trans",     KEYWORD_M_BAD_TRANS,     { 0, 0, 0, 0, 0, 1 } },
-     { "m_state",         KEYWORD_M_STATE,         { 0, 0, 0, 0, 0, 1 } },
-     { "m_trans",         KEYWORD_M_TRANS,         { 0, 0, 0, 0, 0, 1 } },
-     { "mixin",           KEYWORD_MIXIN,           { 0, 0, 0, 1, 0, 0 } },
-     { "module",          KEYWORD_MODULE,          { 0, 0, 0, 1, 0, 0 } },
-     { "mutable",         KEYWORD_MUTABLE,         { 0, 1, 0, 1, 0, 0 } },
-     { "namespace",       KEYWORD_NAMESPACE,       { 0, 1, 1, 1, 0, 0 } },
-     { "native",          KEYWORD_NATIVE,          { 0, 0, 0, 0, 1, 0 } },
-     { "new",             KEYWORD_NEW,             { 0, 1, 1, 1, 1, 0 } },
-     { "newcov",          KEYWORD_NEWCOV,          { 0, 0, 0, 0, 0, 1 } },
-     { "NHOLD",           KEYWORD_NHOLD,           { 0, 0, 0, 0, 0, 1 } },
-     { "noexcept",        KEYWORD_NOEXCEPT,        { 0, 1, 0, 0, 0, 0 } },
-     { "NSAMPLE",         KEYWORD_NSAMPLE,         { 0, 0, 0, 0, 0, 1 } },
-     { "null",            KEYWORD_NULL,            { 0, 0, 0, 1, 0, 0 } },
-     { "operator",        KEYWORD_OPERATOR,        { 0, 1, 1, 1, 0, 0 } },
-     { "out",             KEYWORD_OUT,             { 0, 0, 0, 1, 0, 0 } },
-     { "output",          KEYWORD_OUTPUT,          { 0, 0, 0, 0, 0, 1 } },
-     { "overload",        KEYWORD_OVERLOAD,        { 0, 1, 0, 1, 0, 0 } },
-     { "override",        KEYWORD_OVERRIDE,        { 0, 0, 1, 1, 0, 0 } },
-     { "package",         KEYWORD_PACKAGE,         { 0, 0, 0, 1, 1, 0 } },
-     { "packed",          KEYWORD_PACKED,          { 0, 0, 0, 0, 0, 1 } },
-     { "PHOLD",           KEYWORD_PHOLD,           { 0, 0, 0, 0, 0, 1 } },
-     { "port",            KEYWORD_PORT,            { 0, 0, 0, 0, 0, 1 } },
-     { "pragma",          KEYWORD_PRAGMA,          { 0, 0, 0, 1, 0, 0 } },
-     { "private",         KEYWORD_PRIVATE,         { 0, 1, 1, 1, 1, 0 } },
-     { "program",         KEYWORD_PROGRAM,         { 0, 0, 0, 0, 0, 1 } },
-     { "protected",       KEYWORD_PROTECTED,       { 0, 1, 1, 1, 1, 1 } },
-     { "PSAMPLE",         KEYWORD_PSAMPLE,         { 0, 0, 0, 0, 0, 1 } },
-     { "public",          KEYWORD_PUBLIC,          { 0, 1, 1, 1, 1, 1 } },
-     { "real",            KEYWORD_REAL,            { 0, 0, 0, 1, 0, 0 } },
-     { "register",        KEYWORD_REGISTER,        { 1, 1, 0, 1, 0, 0 } },
-     { "return",          KEYWORD_RETURN,          { 1, 1, 1, 1, 1, 0 } },
-     { "scope",           KEYWORD_SCOPE,           { 0, 0, 0, 1, 0, 0 } },
-     { "shadow",          KEYWORD_SHADOW,          { 0, 0, 0, 0, 0, 1 } },
-     { "short",           KEYWORD_SHORT,           { 1, 1, 1, 1, 1, 0 } },
-     { "signed",          KEYWORD_SIGNED,          { 1, 1, 0, 1, 0, 0 } },
-     { "state",           KEYWORD_STATE,           { 0, 0, 0, 0, 0, 1 } },
-     { "static",          KEYWORD_STATIC,          { 1, 1, 1, 1, 1, 1 } },
-     { "string",          KEYWORD_STRING,          { 0, 0, 1, 0, 0, 1 } },
-     { "struct",          KEYWORD_STRUCT,          { 1, 1, 1, 1, 0, 0 } },
-     { "super",           KEYWORD_SUPER,           { 0, 0, 0, 1, 0, 0 } },
-     { "switch",          KEYWORD_SWITCH,          { 1, 1, 1, 1, 1, 0 } },
-     { "synchronized",    KEYWORD_SYNCHRONIZED,    { 0, 0, 0, 1, 1, 0 } },
-     { "task",            KEYWORD_TASK,            { 0, 0, 0, 0, 0, 1 } },
-     { "template",        KEYWORD_TEMPLATE,        { 0, 1, 0, 1, 0, 0 } },
-     { "this",            KEYWORD_THIS,            { 0, 1, 1, 0, 1, 0 } },
-     { "throw",           KEYWORD_THROW,           { 0, 1, 1, 1, 1, 0 } },
-     { "throws",          KEYWORD_THROWS,          { 0, 0, 0, 0, 1, 0 } },
-     { "trans",           KEYWORD_TRANS,           { 0, 0, 0, 0, 0, 1 } },
-     { "transient",       KEYWORD_TRANSIENT,       { 0, 0, 0, 0, 1, 0 } },
-     { "transition",      KEYWORD_TRANSITION,      { 0, 0, 0, 0, 0, 1 } },
-     { "true",            KEYWORD_TRUE,            { 0, 0, 0, 1, 0, 0 } },
-     { "try",             KEYWORD_TRY,             { 0, 1, 1, 1, 0, 0 } },
-     { "typedef",         KEYWORD_TYPEDEF,         { 1, 1, 1, 1, 0, 1 } },
-     { "typeid",          KEYWORD_TYPEID,          { 0, 0, 0, 1, 0, 0 } },
-     { "typename",        KEYWORD_TYPENAME,        { 0, 1, 0, 1, 0, 0 } },
-     { "typeof",          KEYWORD_TYPEOF,          { 0, 0, 0, 1, 0, 0 } },
-     { "ubyte",           KEYWORD_UBYTE,           { 0, 0, 0, 1, 0, 0 } },
-     { "ucent",           KEYWORD_UCENT,           { 0, 0, 0, 1, 0, 0 } },
-     { "uint",            KEYWORD_UINT,            { 0, 0, 1, 1, 0, 0 } },
-     { "ulong",           KEYWORD_ULONG,           { 0, 0, 1, 1, 0, 0 } },
-     { "union",           KEYWORD_UNION,           { 1, 1, 0, 1, 0, 0 } },
-     { "unittest",        KEYWORD_UNITTEST,        { 0, 0, 0, 1, 0, 0 } },
-     { "unsigned",        KEYWORD_UNSIGNED,        { 1, 1, 1, 1, 0, 0 } },
-     { "ushort",          KEYWORD_USHORT,          { 0, 0, 1, 1, 0, 0 } },
-     { "using",           KEYWORD_USING,           { 0, 1, 1, 1, 0, 0 } },
-     { "version",         KEYWORD_VERSION,         { 0, 0, 0, 1, 0, 0 } },
-     { "virtual",         KEYWORD_VIRTUAL,         { 0, 1, 1, 1, 0, 1 } },
-     { "void",            KEYWORD_VOID,            { 1, 1, 1, 1, 1, 1 } },
-     { "volatile",        KEYWORD_VOLATILE,        { 1, 1, 1, 1, 1, 0 } },
-     { "wchar",           KEYWORD_WCHAR,           { 0, 0, 0, 1, 0, 0 } },
-     { "wchar_t",         KEYWORD_WCHAR_T,         { 0, 1, 1, 0, 0, 0 } },
-     { "while",           KEYWORD_WHILE,           { 1, 1, 1, 1, 1, 0 } },
-     { "with",            KEYWORD_WITH,            { 0, 0, 0, 1, 0, 0 } },
+     /*                                                C++    D    DTrace */
+     /*                                         ANSI C  |  C# | Java   |  */
+     /*                                              |  |  |  |  |  Vera  */
+     /* keyword           keyword ID                 |  |  |  |  |  |  |  */
+     { "__attribute__",   KEYWORD_ATTRIBUTE,       { 1, 1, 1, 1, 0, 0, 0 } },
+     { "abstract",        KEYWORD_ABSTRACT,        { 0, 0, 1, 1, 1, 0, 0 } },
+     { "alias",           KEYWORD_ALIAS,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "align",           KEYWORD_ALIGN,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "asm",             KEYWORD_ASM,             { 0, 0, 0, 1, 0, 0, 0 } },
+     { "assert",          KEYWORD_ASSERT,          { 0, 0, 0, 1, 0, 0, 0 } },
+     { "auto",            KEYWORD_AUTO,            { 0, 0, 0, 1, 0, 0, 0 } },
+     { "bad_state",       KEYWORD_BAD_STATE,       { 0, 0, 0, 0, 0, 1, 0 } },
+     { "bad_trans",       KEYWORD_BAD_TRANS,       { 0, 0, 0, 0, 0, 1, 0 } },
+     { "bind",            KEYWORD_BIND,            { 0, 0, 0, 0, 0, 1, 0 } },
+     { "bind_var",        KEYWORD_BIND_VAR,        { 0, 0, 0, 0, 0, 1, 0 } },
+     { "bit",             KEYWORD_BIT,             { 0, 0, 0, 0, 0, 1, 0 } },
+     { "body",            KEYWORD_BODY,            { 0, 0, 0, 1, 0, 0, 0 } },
+     { "bool",            KEYWORD_BOOL,            { 0, 0, 0, 1, 0, 0, 0 } },
+     { "bool",            KEYWORD_BOOLEAN,         { 0, 0, 0, 0, 1, 0, 0 } },
+     { "break",           KEYWORD_BREAK,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "byte",            KEYWORD_BYTE,            { 0, 0, 0, 1, 1, 0, 0 } },
+     { "case",            KEYWORD_CASE,            { 1, 1, 1, 1, 1, 0, 0 } },
+     { "cast",            KEYWORD_CAST,            { 0, 0, 0, 1, 0, 0, 0 } },
+     { "catch",           KEYWORD_CATCH,           { 0, 1, 1, 1, 1, 0, 0 } },
+     { "cdouble",         KEYWORD_CDOUBLE,         { 0, 0, 0, 1, 0, 0, 0 } },
+     { "cent",            KEYWORD_CENT,            { 0, 0, 0, 1, 0, 0, 0 } },
+     { "cfloat",          KEYWORD_CFLOAT,          { 0, 0, 0, 1, 0, 0, 0 } },
+     { "char",            KEYWORD_CHAR,            { 1, 1, 1, 1, 1, 0, 0 } },
+     { "class",           KEYWORD_CLASS,           { 0, 1, 1, 1, 1, 1, 0 } },
+     { "CLOCK",           KEYWORD_CLOCK,           { 0, 0, 0, 0, 0, 1, 0 } },
+     { "const",           KEYWORD_CONST,           { 1, 1, 1, 1, 1, 0, 0 } },
+     { "constraint",      KEYWORD_CONSTRAINT,      { 0, 0, 0, 0, 0, 1, 0 } },
+     { "continue",        KEYWORD_CONTINUE,        { 0, 0, 0, 1, 0, 0, 0 } },
+     { "coverage_block",  KEYWORD_COVERAGE_BLOCK,  { 0, 0, 0, 0, 0, 1, 0 } },
+     { "coverage_def",    KEYWORD_COVERAGE_DEF,    { 0, 0, 0, 0, 0, 1, 0 } },
+     { "creal",           KEYWORD_CREAL,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "dchar",           KEYWORD_DCHAR,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "debug",           KEYWORD_DEBUG,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "default",         KEYWORD_DEFAULT,         { 1, 1, 1, 1, 1, 0, 0 } },
+     { "delegate",        KEYWORD_DELEGATE,        { 0, 0, 1, 1, 0, 0, 0 } },
+     { "delete",          KEYWORD_DELETE,          { 0, 1, 0, 1, 0, 0, 0 } },
+     { "deprecated",      KEYWORD_DEPRECATED,      { 0, 0, 0, 1, 0, 0, 0 } },
+     { "do",              KEYWORD_DO,              { 1, 1, 1, 1, 1, 0, 0 } },
+     { "double",          KEYWORD_DOUBLE,          { 1, 1, 1, 1, 1, 0, 0 } },
+     { "else",            KEYWORD_ELSE,            { 1, 1, 1, 1, 1, 0, 0 } },
+     { "enum",            KEYWORD_ENUM,            { 1, 1, 1, 1, 1, 1, 0 } },
+     { "event",           KEYWORD_EVENT,           { 0, 0, 1, 0, 0, 1, 0 } },
+     { "explicit",        KEYWORD_EXPLICIT,        { 0, 1, 1, 1, 0, 0, 0 } },
+     { "export",          KEYWORD_EXPORT,          { 0, 0, 0, 1, 0, 0, 0 } },
+     { "extends",         KEYWORD_EXTENDS,         { 0, 0, 0, 0, 1, 1, 0 } },
+     { "extern",          KEYWORD_EXTERN,          { 1, 1, 1, 1, 0, 1, 0 } },
+     { "false",           KEYWORD_FALSE,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "final",           KEYWORD_FINAL,           { 0, 0, 0, 1, 1, 0, 0 } },
+     { "finally",         KEYWORD_FINALLY,         { 0, 0, 0, 1, 0, 0, 0 } },
+     { "float",           KEYWORD_FLOAT,           { 1, 1, 1, 1, 1, 0, 0 } },
+     { "for",             KEYWORD_FOR,             { 1, 1, 1, 1, 1, 0, 0 } },
+     { "foreach",         KEYWORD_FOREACH,         { 0, 0, 1, 1, 0, 0, 0 } },
+     { "foreach_reverse", KEYWORD_FOREACH_REVERSE, { 0, 0, 0, 1, 0, 0, 0 } },
+     { "friend",          KEYWORD_FRIEND,          { 0, 1, 0, 1, 0, 0, 0 } },
+     { "function",        KEYWORD_FUNCTION,        { 0, 0, 0, 1, 0, 1, 0 } },
+     { "goto",            KEYWORD_GOTO,            { 1, 1, 1, 1, 1, 0, 0 } },
+     { "hdl_node",        KEYWORD_HDL_NODE,        { 0, 0, 0, 0, 0, 1, 0 } },
+     { "idouble",         KEYWORD_IDOUBLE,         { 0, 0, 0, 1, 0, 0, 0 } },
+     { "if",              KEYWORD_IF,              { 1, 1, 1, 1, 1, 0, 0 } },
+     { "ifloat",          KEYWORD_IFLOAT,          { 0, 0, 0, 1, 0, 0, 0 } },
+     { "implements",      KEYWORD_IMPLEMENTS,      { 0, 0, 0, 0, 1, 0, 0 } },
+     { "import",          KEYWORD_IMPORT,          { 0, 0, 0, 1, 1, 0, 0 } },
+     { "in",              KEYWORD_IN,              { 0, 0, 0, 1, 0, 0, 0 } },
+     { "inline",          KEYWORD_INLINE,          { 0, 1, 0, 1, 0, 0, 0 } },
+     { "inout",           KEYWORD_INOUT,           { 0, 0, 0, 1, 0, 1, 0 } },
+     { "input",           KEYWORD_INPUT,           { 0, 0, 0, 0, 0, 1, 0 } },
+     { "int",             KEYWORD_INT,             { 1, 1, 1, 1, 1, 0, 0 } },
+     { "integer",         KEYWORD_INTEGER,         { 0, 0, 0, 0, 0, 1, 0 } },
+     { "interface",       KEYWORD_INTERFACE,       { 0, 0, 1, 1, 1, 1, 0 } },
+     { "internal",        KEYWORD_INTERNAL,        { 0, 0, 1, 0, 0, 0, 0 } },
+     { "invariant",       KEYWORD_INVARIANT,       { 0, 0, 0, 1, 0, 0, 0 } },
+     { "ireal",           KEYWORD_IREAL,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "is",              KEYWORD_IS,              { 0, 0, 0, 1, 0, 0, 0 } },
+     { "lazy",            KEYWORD_LAZY,            { 0, 0, 0, 1, 0, 0, 0 } },
+     { "local",           KEYWORD_LOCAL,           { 0, 0, 0, 0, 0, 1, 0 } },
+     { "long",            KEYWORD_LONG,            { 1, 1, 1, 1, 1, 0, 0 } },
+     { "m_bad_state",     KEYWORD_M_BAD_STATE,     { 0, 0, 0, 0, 0, 1, 0 } },
+     { "m_bad_trans",     KEYWORD_M_BAD_TRANS,     { 0, 0, 0, 0, 0, 1, 0 } },
+     { "m_state",         KEYWORD_M_STATE,         { 0, 0, 0, 0, 0, 1, 0 } },
+     { "m_trans",         KEYWORD_M_TRANS,         { 0, 0, 0, 0, 0, 1, 0 } },
+     { "mixin",           KEYWORD_MIXIN,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "module",          KEYWORD_MODULE,          { 0, 0, 0, 1, 0, 0, 0 } },
+     { "mutable",         KEYWORD_MUTABLE,         { 0, 1, 0, 1, 0, 0, 0 } },
+     { "namespace",       KEYWORD_NAMESPACE,       { 0, 1, 1, 1, 0, 0, 0 } },
+     { "native",          KEYWORD_NATIVE,          { 0, 0, 0, 0, 1, 0, 0 } },
+     { "new",             KEYWORD_NEW,             { 0, 1, 1, 1, 1, 0, 0 } },
+     { "newcov",          KEYWORD_NEWCOV,          { 0, 0, 0, 0, 0, 1, 0 } },
+     { "NHOLD",           KEYWORD_NHOLD,           { 0, 0, 0, 0, 0, 1, 0 } },
+     { "noexcept",        KEYWORD_NOEXCEPT,        { 0, 1, 0, 0, 0, 0, 0 } },
+     { "NSAMPLE",         KEYWORD_NSAMPLE,         { 0, 0, 0, 0, 0, 1, 0 } },
+     { "null",            KEYWORD_NULL,            { 0, 0, 0, 1, 0, 0, 0 } },
+     { "operator",        KEYWORD_OPERATOR,        { 0, 1, 1, 1, 0, 0, 0 } },
+     { "out",             KEYWORD_OUT,             { 0, 0, 0, 1, 0, 0, 0 } },
+     { "output",          KEYWORD_OUTPUT,          { 0, 0, 0, 0, 0, 1, 0 } },
+     { "overload",        KEYWORD_OVERLOAD,        { 0, 1, 0, 1, 0, 0, 0 } },
+     { "override",        KEYWORD_OVERRIDE,        { 0, 0, 1, 1, 0, 0, 0 } },
+     { "package",         KEYWORD_PACKAGE,         { 0, 0, 0, 1, 1, 0, 0 } },
+     { "packed",          KEYWORD_PACKED,          { 0, 0, 0, 0, 0, 1, 0 } },
+     { "PHOLD",           KEYWORD_PHOLD,           { 0, 0, 0, 0, 0, 1, 0 } },
+     { "port",            KEYWORD_PORT,            { 0, 0, 0, 0, 0, 1, 0 } },
+     { "pragma",          KEYWORD_PRAGMA,          { 0, 0, 0, 1, 0, 0, 0 } },
+     { "private",         KEYWORD_PRIVATE,         { 0, 1, 1, 1, 1, 0, 0 } },
+     { "program",         KEYWORD_PROGRAM,         { 0, 0, 0, 0, 0, 1, 0 } },
+     { "protected",       KEYWORD_PROTECTED,       { 0, 1, 1, 1, 1, 1, 0 } },
+     { "PSAMPLE",         KEYWORD_PSAMPLE,         { 0, 0, 0, 0, 0, 1, 0 } },
+     { "public",          KEYWORD_PUBLIC,          { 0, 1, 1, 1, 1, 1, 0 } },
+     { "real",            KEYWORD_REAL,            { 0, 0, 0, 1, 0, 0, 0 } },
+     { "register",        KEYWORD_REGISTER,        { 1, 1, 0, 1, 0, 0, 0 } },
+     { "return",          KEYWORD_RETURN,          { 1, 1, 1, 1, 1, 0, 0 } },
+     { "scope",           KEYWORD_SCOPE,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "shadow",          KEYWORD_SHADOW,          { 0, 0, 0, 0, 0, 1, 0 } },
+     { "short",           KEYWORD_SHORT,           { 1, 1, 1, 1, 1, 0, 0 } },
+     { "signed",          KEYWORD_SIGNED,          { 1, 1, 0, 1, 0, 0, 0 } },
+     { "state",           KEYWORD_STATE,           { 0, 0, 0, 0, 0, 1, 0 } },
+     { "static",          KEYWORD_STATIC,          { 1, 1, 1, 1, 1, 1, 0 } },
+     { "string",          KEYWORD_STRING,          { 0, 0, 1, 0, 0, 1, 0 } },
+     { "struct",          KEYWORD_STRUCT,          { 1, 1, 1, 1, 0, 0, 0 } },
+     { "super",           KEYWORD_SUPER,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "switch",          KEYWORD_SWITCH,          { 1, 1, 1, 1, 1, 0, 0 } },
+     { "synchronized",    KEYWORD_SYNCHRONIZED,    { 0, 0, 0, 1, 1, 0, 0 } },
+     { "task",            KEYWORD_TASK,            { 0, 0, 0, 0, 0, 1, 0 } },
+     { "template",        KEYWORD_TEMPLATE,        { 0, 1, 0, 1, 0, 0, 0 } },
+     { "this",            KEYWORD_THIS,            { 0, 1, 1, 0, 1, 0, 0 } },
+     { "throw",           KEYWORD_THROW,           { 0, 1, 1, 1, 1, 0, 0 } },
+     { "throws",          KEYWORD_THROWS,          { 0, 0, 0, 0, 1, 0, 0 } },
+     { "trans",           KEYWORD_TRANS,           { 0, 0, 0, 0, 0, 1, 0 } },
+     { "transient",       KEYWORD_TRANSIENT,       { 0, 0, 0, 0, 1, 0, 0 } },
+     { "transition",      KEYWORD_TRANSITION,      { 0, 0, 0, 0, 0, 1, 0 } },
+     { "true",            KEYWORD_TRUE,            { 0, 0, 0, 1, 0, 0, 0 } },
+     { "try",             KEYWORD_TRY,             { 0, 1, 1, 1, 0, 0, 0 } },
+     { "typedef",         KEYWORD_TYPEDEF,         { 1, 1, 1, 1, 0, 1, 0 } },
+     { "typeid",          KEYWORD_TYPEID,          { 0, 0, 0, 1, 0, 0, 0 } },
+     { "typename",        KEYWORD_TYPENAME,        { 0, 1, 0, 1, 0, 0, 0 } },
+     { "typeof",          KEYWORD_TYPEOF,          { 0, 0, 0, 1, 0, 0, 0 } },
+     { "ubyte",           KEYWORD_UBYTE,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "ucent",           KEYWORD_UCENT,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "uint",            KEYWORD_UINT,            { 0, 0, 1, 1, 0, 0, 0 } },
+     { "ulong",           KEYWORD_ULONG,           { 0, 0, 1, 1, 0, 0, 0 } },
+     { "union",           KEYWORD_UNION,           { 1, 1, 0, 1, 0, 0, 0 } },
+     { "unittest",        KEYWORD_UNITTEST,        { 0, 0, 0, 1, 0, 0, 0 } },
+     { "unsigned",        KEYWORD_UNSIGNED,        { 1, 1, 1, 1, 0, 0, 0 } },
+     { "ushort",          KEYWORD_USHORT,          { 0, 0, 1, 1, 0, 0, 0 } },
+     { "using",           KEYWORD_USING,           { 0, 1, 1, 1, 0, 0, 0 } },
+     { "version",         KEYWORD_VERSION,         { 0, 0, 0, 1, 0, 0, 0 } },
+     { "virtual",         KEYWORD_VIRTUAL,         { 0, 1, 1, 1, 0, 1, 0 } },
+     { "void",            KEYWORD_VOID,            { 1, 1, 1, 1, 1, 1, 0 } },
+     { "volatile",        KEYWORD_VOLATILE,        { 1, 1, 1, 1, 1, 0, 0 } },
+     { "wchar",           KEYWORD_WCHAR,           { 0, 0, 0, 1, 0, 0, 0 } },
+     { "wchar_t",         KEYWORD_WCHAR_T,         { 0, 1, 1, 0, 0, 0, 0 } },
+     { "while",           KEYWORD_WHILE,           { 1, 1, 1, 1, 1, 0, 0 } },
+     { "with",            KEYWORD_WITH,            { 0, 0, 0, 1, 0, 0, 0 } },
 };
 
 /*
@@ -1136,6 +1135,17 @@ static veraKind veraTagKindFull (const tagType type, bool with_assert) {
 	return result;
 }
 
+#define	dtraceTagKind(type) dtraceTagKindFull(type, true)
+#define dtraceTagKindNoAssert(type) dtraceTagKindFull(type, false)
+static dtraceKind dtraceTagKindFull (const tagType type, bool with_assert) {
+	dtraceKind result = DTK_UNDEFINED;
+	switch (type)
+	{
+		default: if (with_assert) Assert ("Bad DTrace tag type" == NULL); break;
+	}
+	return result;
+}
+
 static const kindDefinition *kindForType (const tagType type)
 {
 	const kindDefinition * result;
@@ -1147,6 +1157,8 @@ static const kindDefinition *kindForType (const tagType type)
 		result = &(DKinds [dTagKind (type)]);
 	else if (isInputLanguage (Lang_vera))
 		result = &(VeraKinds [veraTagKind (type)]);
+	else if (isInputLanguage (Lang_dtrace))
+		result = &(DTraceKinds [dtraceTagKind (type)]);
 	else
 		result = &(CKinds [cTagKind (type)]);
 	return result;
@@ -1177,6 +1189,8 @@ static const char *tagName (const tagType type)
 		result = DKinds [dTagKind (type)].name;
 	else if (isInputLanguage (Lang_vera))
 		result = VeraKinds [veraTagKind (type)].name;
+	else if (isInputLanguage (Lang_dtrace))
+		result = DTraceKinds [dtraceTagKind (type)].name;
 	else
 		result = CKinds [cTagKind (type)].name;
 	return result;
@@ -1209,6 +1223,11 @@ static bool includeTag (const tagType type, const bool isFileScope)
 	{
 		k = veraTagKindNoAssert (type);
 		kdef = VeraKinds;
+	}
+	else if (isInputLanguage (Lang_dtrace))
+	{
+		k = dtraceTagKindNoAssert (type);
+		kdef = DTraceKinds;
 	}
 	else
 	{
@@ -3711,6 +3730,7 @@ extern parserDefinition* DTraceParser (void)
 	def->parser2	= findCTags;
 	def->initialize	= initializeDTraceParser;
 	def->selectLanguage = selectors;
+	def->useCork = true;
 	// TODO: end field like above?
 	return def;
 }
